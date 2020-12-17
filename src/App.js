@@ -6,8 +6,10 @@ import './App.css';
 function App() {
   let [title, setTitle] = useState(['리액트 이야기1', '리액트 이야기2', '리액트 이야기3']);
   let [content, setContent] = useState(['12월 12일 발행', '12월 13일 발행', '12월 14일 발행',]);
-  let [addLike, setaddLike] = useState(1);
+  let [addLike, setAddLike] = useState(0);
   let [showModal, setShowModal] = useState(false);
+  let [clickedNum, setClickedNum] = useState(0);
+  let [input, setInput] = useState('');
   // let posts = '리액트 이야기1';
 
   // function changeTitle() {
@@ -15,6 +17,12 @@ function App() {
   //   newArray[0] = '리액트 공부하기1';
   //   setTitle(newArray);
   // }
+
+  function savePost() {
+    var newArray = [...title];
+    newArray.unshift(input);
+    setTitle(newArray);
+  }
 
   return (
     <div className="App">
@@ -24,46 +32,45 @@ function App() {
       {/* <div>
         <button onClick={ changeTitle }>수정</button>
       </div> */}
-      <div className="list">
-        <strong className="title">{ title[0] } <span className="like" onClick={ () => { setaddLike(addLike + 1) } }>❤️</span><em>{addLike}</em></strong>
-        <p>{ content[0] }</p>
-        <hr/>
-      </div>
-      <div className="list">
-        <strong className="title">{ title[1] }</strong>
-        <p>{ content[1] }</p>
-        <hr/>
-      </div>
-      <div className="list">
-        <strong className="title">{ title[2] }</strong>
-        <p>{ content[2] }</p>
-        <hr/>
-      </div>
-      
-      <button 
-        // onClick={()=>{ 
-        //   if(showModal === false){ 
-        //     setShowModal(true)} else {
-        //       setShowModal(false)
-        //   } }}
 
-        onClick = {()=>{setShowModal(!showModal)}}
-      >
+      {
+        title.map((title_, index)=>{
+          return(  
+            <div className="list" key={`id`+index}>
+              <strong className="title" onClick={()=>{setClickedNum(index)}}>
+                { title_ }
+                <span className="like" onClick={(e) => { setAddLike(addLike + 1) }}>❤️</span>
+                <em>{addLike}</em>
+              </strong>
+              <p>{ content[0] }</p>
+              <hr/>
+            </div>
+          )
+        })
+      }
+
+      <div className="publish">
+        {/* {input} */}
+        <input onChange={(e)=>{ setInput(e.target.value) }} />
+        <button onClick={savePost} >저장</button>
+      </div>
+
+      <button onClick = {()=>{setShowModal(!showModal)}}>
         modal button
       </button>
 
       {
-        showModal === true ? <Modal /> : null
+        showModal === true ? <Modal title={title} clickedNum={clickedNum} /> : null
       }
 
     </div>
   );
 }
 
-function Modal() {
+function Modal(props) {
   return(
     <div className="modal">
-      <strong>제목</strong>
+      <strong>{props.title[props.clickedNum]}</strong>
       <div>날짜</div>
       <p>상세 내용</p>
     </div>
