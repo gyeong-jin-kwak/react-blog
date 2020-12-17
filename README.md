@@ -22,3 +22,20 @@ npm start
 ## 필요한 부분만 복사본 만들어서 수정
 * var newArray = title;
 * newArray[0] = '수정할 부분 수정';
+
+## Componet화의 기준
+1. 반복적인 내용
+2. 자주 바뀌는 UI (재렌더링이 자주 일어나는 component)
+3. 페이지를 구성할 때
+
+## React 문법
+* {} 중괄호 안아서 if문 x -> 삼항연산자 사용
+
+## 모달창 만들기
+1. modal function Modal(){}로 component 화
+2. 삼항연산자 사용 ? <Modal /> : null
+3. boolean useState
+4. onClick = {()=>{}}
+
+## Toggle
+* onClick = {()=>{setShowModal(!showModal)}}
