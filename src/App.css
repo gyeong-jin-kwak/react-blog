@@ -11,3 +11,22 @@
   font-size: 20px;
   font-weight: 600;
 }
+
+.list {
+  margin-top: 30px;
+  padding: 0 20px;
+  text-align: left;
+}
+
+.like {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.like + em {
+  position: relative;
+  top: -2px;
+  margin-left: 5px;
+  font-style: normal;
+  font-weight: 500;
+}
